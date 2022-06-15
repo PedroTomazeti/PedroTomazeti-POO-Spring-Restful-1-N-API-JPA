@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns="http://www.w3.org//1999/xhtml"
+       xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Bem-vindo(a) - Sistema Cursos - poo.br</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>Bem vindo(a) ao Menu principal!</h1>
+        <div>
+            <div layout:fragment="content"></div>
+        </div>
+        
+        <div th:replace="fragments/footer :: footer"></div>
+    </body>
+</html>

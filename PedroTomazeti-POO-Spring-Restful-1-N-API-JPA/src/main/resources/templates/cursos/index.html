@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns="http://www.w3.org//1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout-simples.html}"> 
+    <head>
+        <title>Menu de cursos</title>
+    </head>
+    <body>
+        <section layout:fragment="content">
+            <div class="card-header">
+                <h3>Cursos</h3>
+            </div>
+            <h4 th:if="${cursos.isEmpty()}">Nenhum registro encontrado!</h4>
+            <div th:if="${!cursos.isEmpty()}">
+                <table id="tblCursos">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Carga horária</th>
+                            <th>Data início</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="curso: ${cursos}">
+                            <td th:text="${curso.nome}"></td>
+                            <td th:text="${curso.carga_horaria}"></td>
+                            <td th:text="${curso.data_inicio}"></td>
+                            <td><a th:href="@{/cursos/edit/{id}(id=${curso.id})}"><button>Editar</button></a></td>
+                            <td><a th:href="@{/cursos/delete/{id}(id=${curso.id})}" id="btnDelete"
+                                       class="delete"
+                                       data-confirm="Confirma a exclusão?"><button>Deletar</button></a></td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Carga horária</th>
+                            <th>Data início</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div>Deseja adicionar novo curso? <a href="/cursos/add-cursos" class="btn btn-primary"><button>Novo</button></a></div>
+            <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+            <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+            <script th:src="@{/webjars/datatables/js/jquery.dataTables.min.js}"></script>
+            <script>
+                var deleteLinks = document.querySelectorAll('.delete');
+
+                for (var i = 0; i < deleteLinks.length; i++) {
+                    deleteLinks[i].addEventListener('click', function (event) {
+                        event.preventDefault();
+
+                        var choice = confirm(this.getAttribute('data-confirm'));
+
+                        if (choice) {
+                            window.location.href = this.getAttribute('href');
+                        }
+                    });
+                }
+
+                //Menu Toggle Script
+                $("#menu-toggle").click(function (e) {
+                    e.preventDefault();
+                    $("#wrapper").toggleClass("toggled");
+                });
+
+                $(document).ready(function () {
+                    $('#myTable').DataTable();
+                });
+            </script>
+        </section>
+    </body>
+</html>
